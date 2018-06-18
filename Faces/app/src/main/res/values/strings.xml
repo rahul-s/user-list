@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Faces</string>
+
+    <string name="welcome">Welcome...!!</string>
+    <string name="title_activity_user_list">Users</string>
+    <string name="arrow_indicator_right">></string>
 </resources>
