@@ -1,16 +1,14 @@
 package com.rs.faces.view.list;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.rs.faces.R;
+import com.rs.faces.models.User;
 import com.rs.faces.view.base.BaseActivity;
+
+import java.util.List;
 
 import butterknife.Bind;
 
@@ -21,6 +19,9 @@ public class UserListActivity extends BaseActivity<UserListPresenter>
 
     @Bind(R.id.users_list)
     protected RecyclerView usersList;
+
+    // List Adapter
+    private UserListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,25 +48,18 @@ public class UserListActivity extends BaseActivity<UserListPresenter>
         usersList.setLayoutManager(layoutManager);
 
         // Setup recycler view adapter
-        UserListAdapter adapter = new UserListAdapter();
+        adapter = new UserListAdapter();
         adapter.setListener(this);
         usersList.setAdapter(adapter);
     }
 
     //region View Interface methods
-    @Override
-    public void showLoadingIndicator() {
-        // TODO: show loading indicator
-    }
 
     @Override
-    public void hideLoadingIndicator() {
-        // TODO: hide loading indicator
-    }
-
-    @Override
-    public void populateUsersList() {
-        // TODO: populate the users in the list
+    public void populateUsersList(int page, int pageSize, List<User> users) {
+        if (adapter != null) {
+            adapter.addUsers(page, pageSize, users);
+        }
     }
     //endregion
 
@@ -77,7 +71,7 @@ public class UserListActivity extends BaseActivity<UserListPresenter>
     }
 
     @Override
-    public void userClicked() {
+    public void userClicked(User user) {
         // TODO: Open user details screen
     }
     //endregion

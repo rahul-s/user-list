@@ -2,9 +2,6 @@ package com.rs.faces.managers;
 
 import com.rs.faces.models.User;
 import com.rs.faces.webservices.UserWebService;
-import com.rs.faces.webservices.WebServiceErrorListener;
-import com.rs.faces.webservices.WebServiceSuccessListener;
-import com.rs.faces.webservices.wsmodels.UserFetchResponse;
 import com.rs.faces.webservices.wsmodels.WSError;
 
 import java.util.List;
@@ -27,8 +24,11 @@ public class UsersManager {
     public void fetchUsers(int page, int pageSize, FetchUsersListener listener) {
         new UserWebService().fetchUsers(page, pageSize, response -> {
             if (listener != null) {
+
+                // Check if end of list
                 boolean endOfList = false;
                 if (response.getUsers() == null || response.getUsers().size() == 0) endOfList = true;
+
                 listener.usersFetched(response.getPage(), response.getPageSize(), response.getUsers(), endOfList);
             }
         }, error -> {

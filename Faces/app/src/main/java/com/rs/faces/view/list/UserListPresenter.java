@@ -12,18 +12,15 @@ public class UserListPresenter<V extends UserListPresenter.UserListView> extends
     @Override
     protected void viewCreated() {
         super.viewCreated();
-
-        if (isViewAttached()) {
-            getView().showLoadingIndicator();
-            requestUsers(1, 4);
-        }
     }
 
     public void requestUsers(int page, int pageSize) {
         UsersManager.getSharedInstance().fetchUsers(page, pageSize, new UsersManager.FetchUsersListener() {
             @Override
             public void usersFetched(int page, int pageSize, List<User> users, boolean endOfList) {
-
+                if (isViewAttached()) {
+                    getView().populateUsersList(page, pageSize, users);
+                }
             }
 
             @Override
@@ -34,8 +31,6 @@ public class UserListPresenter<V extends UserListPresenter.UserListView> extends
     }
 
     public interface UserListView extends View{
-        void showLoadingIndicator();
-        void hideLoadingIndicator();
-        void populateUsersList();
+        void populateUsersList(int page, int pageSize, List<User> users);
     }
 }
