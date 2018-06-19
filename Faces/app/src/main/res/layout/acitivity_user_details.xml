@@ -15,9 +15,11 @@
         android:layout_marginTop="20dp"
         android:src="@drawable/ic_launcher_background"
         android:scaleType="centerCrop"
+        android:transitionName="user_avatar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="lollipop" />
 
     <TextView
         android:id="@+id/user_detail_name"
@@ -26,9 +28,12 @@
         android:layout_marginTop="20dp"
         android:textColor="@color/textBlack"
         android:textStyle="bold"
+        android:textSize="24sp"
+        android:transitionName="user_name"
         tools:text="Rahul S"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_detail_avatar"/>
+        app:layout_constraintTop_toBottomOf="@id/user_detail_avatar"
+        tools:targetApi="lollipop" />
 
 </android.support.constraint.ConstraintLayout>

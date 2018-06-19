@@ -1,9 +1,13 @@
 package com.rs.faces.view.list;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.rs.faces.R;
 import com.rs.faces.models.User;
@@ -75,12 +79,23 @@ public class UserListActivity extends BaseActivity<UserListPresenter>
     }
 
     @Override
-    public void userClicked(User user) {
+    public void userClicked(User user, View userAvatar, View userName) {
 
         // Open user details screen
         Intent userDetailsIntent = new Intent(this, UserDetailsActivity.class);
         userDetailsIntent.putExtra(UserDetailsActivity.PARAM_USER, user);
-        startActivity(userDetailsIntent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+
+            Pair<View, String> p1 = Pair.create(userAvatar, "user_avatar");
+            Pair<View, String> p2 = Pair.create(userName, "user_name");
+
+            ActivityOptionsCompat options = ActivityOptionsCompat.
+                    makeSceneTransitionAnimation(this, p1, p2);
+            startActivity(userDetailsIntent, options.toBundle());
+        }
+        else {
+            startActivity(userDetailsIntent);
+        }
     }
     //endregion
 }

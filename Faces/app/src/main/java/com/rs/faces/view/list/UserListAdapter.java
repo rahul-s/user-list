@@ -111,7 +111,7 @@ public class UserListAdapter extends RecyclerView.Adapter {
                     .into(userAvatar);
 
             // User name
-            userName.setText(user.getFirstName());
+            userName.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
 
             if (getAdapterPosition()%2 == 0) {
                 userRow.setBackgroundColor(ContextCompat.getColor(userRow.getContext(), R.color.backgroundRow));
@@ -121,7 +121,7 @@ public class UserListAdapter extends RecyclerView.Adapter {
             }
 
             userRow.setOnClickListener((v) -> {
-                if (listener != null) listener.userClicked(user);
+                if (listener != null) listener.userClicked(user, userAvatar, userName);
             });
         }
     }
@@ -145,6 +145,6 @@ public class UserListAdapter extends RecyclerView.Adapter {
     public interface UsersListListener {
 
         void fetchNextPage(int page, int pageSize);
-        void userClicked(User user);
+        void userClicked(User user, View userAvatar, View userName);
     }
 }
