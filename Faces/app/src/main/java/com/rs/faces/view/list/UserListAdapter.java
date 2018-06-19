@@ -26,6 +26,7 @@ public class UserListAdapter extends RecyclerView.Adapter {
     private List<User> users = new ArrayList<>();
     private int loadedPages = 0;
     private boolean isLoading = false;
+    private boolean endOfList = false;
 
     private static final int LIST_ITEM_TYPE_USER = 1;
     private static final int LIST_ITEM_TYPE_LOADER = 2;
@@ -57,12 +58,14 @@ public class UserListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return users.size() + 1;    // One extra row for loading indicator
+        int count = users.size();
+        if (!endOfList) count++;
+        return count;    // One extra row for loading indicator
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == getItemCount() - 1) {
+        if (position == this.users.size()) {
             return LIST_ITEM_TYPE_LOADER;
         }
         else {
@@ -84,6 +87,12 @@ public class UserListAdapter extends RecyclerView.Adapter {
             int currentlastPosition = this.users.size();
             this.users.addAll(users);
             notifyItemRangeInserted(currentlastPosition+1, users.size());
+        }
+        else {
+
+            // Stop the loading indicator
+            endOfList = true;
+            notifyDataSetChanged();
         }
     }
 
