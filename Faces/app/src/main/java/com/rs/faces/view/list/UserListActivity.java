@@ -1,5 +1,6 @@
 package com.rs.faces.view.list;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.rs.faces.R;
 import com.rs.faces.models.User;
 import com.rs.faces.view.base.BaseActivity;
+import com.rs.faces.view.detail.UserDetailsActivity;
 
 import java.util.List;
 
@@ -67,12 +69,18 @@ public class UserListActivity extends BaseActivity<UserListPresenter>
     //region List interface methods
     @Override
     public void fetchNextPage(int page, int pageSize) {
+
+        // Request for next page
         getPresenter().requestUsers(page, pageSize);
     }
 
     @Override
     public void userClicked(User user) {
-        // TODO: Open user details screen
+
+        // Open user details screen
+        Intent userDetailsIntent = new Intent(this, UserDetailsActivity.class);
+        userDetailsIntent.putExtra(UserDetailsActivity.PARAM_USER, user);
+        startActivity(userDetailsIntent);
     }
     //endregion
 }

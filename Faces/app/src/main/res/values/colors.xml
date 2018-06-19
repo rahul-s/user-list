@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="textWhite">#FFFFFF</color>
+    <color name="textBlack">#131105</color>
     <color name="backgroundPrimary">#EDF1FF</color>
     <color name="backgroundRow">#EDF1FF</color>
     <color name="backgroundRowAlternate">#E4E4FF</color>
